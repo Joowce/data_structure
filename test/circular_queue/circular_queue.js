@@ -26,8 +26,8 @@ describe('circular queue', () => {
             queue.add(last);
 
             const data = queue.getQueue();
-            should.equal(data[1], first);
-            should.equal(data[2], last);
+            should.equal(data[0], first);
+            should.equal(data[1], last);
         });
     });
 
@@ -65,17 +65,20 @@ describe('circular queue', () => {
             const second = 2;
             const third = 3;
             const fourth = 4;
+            const fifth = 5;
 
             queue.add(first);
             queue.add(second);
             queue.add(third);
 
             should.equal(queue.delete(), first);
+            should.equal(queue.delete(), second);
 
             queue.add(fourth);
+            queue.add(fifth);
             const data = queue.getQueue();
 
-            should.equal(data[0], fourth);
+            should.equal(data[0], fifth);
         });
     });
 
