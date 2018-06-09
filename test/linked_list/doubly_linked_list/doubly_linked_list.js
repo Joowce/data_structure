@@ -1,5 +1,5 @@
 const should = require('should');
-const DoublyLinkedList = require('../../src/doubly_linked_list/doubly_linked_list');
+const DoublyLinkedList = require('../../../src/linked_list/doubly_linked_list/doubly_linked_list');
 
 describe('doubly_linked_list', () => {
     describe('add',() => {
