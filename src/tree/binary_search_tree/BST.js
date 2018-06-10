@@ -7,10 +7,6 @@ class BST {
         this.height = -1;
     }
 
-    isLeaf(data) {
-        return this.getHeight() === 0;
-    }
-
     getHeight() {
         if (this.root) return this.height;
         return 0;
@@ -66,11 +62,11 @@ class BST {
         if (!this.root) return;
 
         if (this.root.data === data) {
-            if (!this.root.left && !this.root.right) {
+            if (!this.root.left.root && !this.root.right.root) {
                 this.root = null;
-            } else if (!this.root.left) {
+            } else if (!this.root.left.root) {
                 this.root = this.root.right.root;
-            } else if (!this.root.right) {
+            } else if (!this.root.right.root) {
                 this.root = this.root.left.root;
             } else {
                 const replacement = this.getSuccessor();
@@ -80,10 +76,12 @@ class BST {
                 }
             }
         } else if (this.root.data > data) {
-            this.root.data.left.delete(data);
+            this.root.left.delete(data);
         } else if (this.root.data < data) {
-            this.root.data.right.delete(data);
+            this.root.right.delete(data);
         }
+
+        this.updateHeights(false);
     }
 
     inorder () {
@@ -91,13 +89,13 @@ class BST {
 
         const result = [];
         const left = this.root.left.inorder();
-        for (let idx = 0; idx < left.length(); idx += 1){
-            result.append(left[idx]);
+        for (let idx = 0; idx < left.length; idx += 1){
+            result.push(left[idx]);
         }
-        result.append(this.root.data);
+        result.push(this.root.data);
         const right = this.root.right.inorder();
-        for (let idx = 0; idx < right.length(); idx += 1){
-            result.append(right[idx]);
+        for (let idx = 0; idx < right.length; idx += 1){
+            result.push(right[idx]);
         }
 
         return result;

@@ -90,11 +90,11 @@ class AVL extends BST {
         if (!this.root) return;
 
         if (this.root.data === data) {
-            if (!this.root.left && !this.root.right) {
+            if (!this.root.left.root && !this.root.right.root) {
                 this.root = null;
-            } else if (!this.root.left) {
+            } else if (!this.root.left.root) {
                 this.root = this.root.right.root;
-            } else if (!this.root.right) {
+            } else if (!this.root.right.root) {
                 this.root = this.root.left.root;
             } else {
                 const replacement = this.getSuccessor();
@@ -104,9 +104,9 @@ class AVL extends BST {
                 }
             }
         } else if (this.root.data > data) {
-            this.root.data.left.delete(data);
+            this.root.left.delete(data);
         } else if (this.root.data < data) {
-            this.root.data.right.delete(data);
+            this.root.right.delete(data);
         }
         this.rebalance();
     }
