@@ -18,7 +18,7 @@ describe('AVL Tree', () => {
 
            tree.insert(rootData);
            should.equal(tree.getHeight(), height);
-           should.equal(tree.root.data, rootData);
+           should.equal(tree.root, rootData);
        });
 
         it('rotateR', () => {
@@ -33,7 +33,7 @@ describe('AVL Tree', () => {
             tree.insert(third);
 
             should.equal(tree.getHeight(), height);
-            should.equal(tree.root.data, second);
+            should.equal(tree.root, second);
         });
 
         it('rotateL', () => {
@@ -48,7 +48,7 @@ describe('AVL Tree', () => {
             tree.insert(third);
 
             should.equal(tree.getHeight(), height);
-            should.equal(tree.root.data, second);
+            should.equal(tree.root, second);
         });
 
         it('> double rotation', () => {
@@ -70,7 +70,7 @@ describe('AVL Tree', () => {
 
             should.equal(tree.getHeight(), height);
             should.equal(tree.balance, balance);
-            should.equal(tree.root.right.root.data, fifth);
+            should.equal(tree.right.root, fifth);
         });
 
         it('< double rotation', () => {
@@ -92,7 +92,7 @@ describe('AVL Tree', () => {
 
             should.equal(tree.getHeight(), height);
             should.equal(tree.balance, balance);
-            should.equal(tree.root.right.root.data, fifth);
+            should.equal(tree.right.root, fifth);
         });
 
         it('insert existing data => throw error', () => {
@@ -114,7 +114,7 @@ describe('AVL Tree', () => {
             data.forEach(val => tree.insert(val));
             should.equal(tree.getHeight(), height);
             should.equal(tree.balance, balance);
-            should.equal(tree.root.data, 4);
+            should.equal(tree.root, 4);
             should.deepEqual(tree.inorder(), result);
         })
     });
@@ -126,7 +126,7 @@ describe('AVL Tree', () => {
             const afterDeletion = [1, 3, 4, 5];
 
             data.forEach(val => tree.insert(val));
-            const root = tree.root.data;
+            const root = tree.root;
             tree.delete(root);
             should.deepEqual(tree.inorder(), afterDeletion);
         });

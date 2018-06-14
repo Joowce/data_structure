@@ -57,7 +57,7 @@ describe('binary search tree', () => {
 
             inserted.forEach(val => tree.insert(val));
 
-            const root = tree.root.data;
+            const root = tree.root;
             tree.delete(root);
 
             should.equal(tree.getHeight(), height);
@@ -152,7 +152,7 @@ describe('binary search tree', () => {
             inserted.forEach(val => tree.insert(val));
 
             const successor = tree.getSuccessor();
-            should.equal(successor.data, successorData);
+            should.equal(successor.root, successorData);
         });
 
         it('no successor', () => {

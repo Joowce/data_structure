@@ -1,4 +1,3 @@
-const Node = require('../node/Node');
 const BST = require('../binary_search_tree/BST');
 
 
@@ -25,38 +24,31 @@ class AVL extends BST {
      * O(h) = O(logn)
      * @param data
      */
-    insert(data) {
-        const tree = this.root;
-        const newNode = new Node(data);
 
-        if (tree === null) {
-            this.root = newNode;
-            this.root.left = new AVL();
-            this.root.right = new AVL();
-        } else if (data < tree.data) {
-            this.root.left.insert(data);
-        } else if (data > tree.data) {
-            this.root.right.insert(data);
-        } else {
-            throw new Error(`["${data}"] alreay in tree`);
-        }
+    updateTree() {
         this.rebalance();
     }
 
     updateBalances(recurse = true) {
         if (this.root) {
             if (recurse) {
-                if (this.root.left) {
-                    this.root.left.updateBalances();
+                if (this.left) {
+                    this.left.updateBalances();
                 }
-                if (this.root.right) {
-                    this.root.right.updateBalances();
+                if (this.right) {
+                    this.right.updateBalances();
                 }
             }
-            this.balance = this.root.left.getHeight() - this.root.right.getHeight();
+            const leftHeight = this.left ? this.left.getHeight() : 0;
+            const rightHeight = this.right ? this.right.getHeight() : 0;
+            this.balance = leftHeight - rightHeight;
         } else {
             this.balance = 0;
         }
+    }
+
+    makeNewTree() {
+        return new AVL();
     }
 
     rebalance() {
@@ -64,8 +56,8 @@ class AVL extends BST {
         this.updateHeights(false);
         while (this.balance < -1 || this.balance > 1) {
             if (this.balance < -1) {
-                if (this.root.right.balance > 0) {
-                    this.root.right.rotateR();
+                if (this.right.balance > 0) {
+                    this.right.rotateR();
                     this.updateHeights();
                     this.updateBalances();
                 }
@@ -74,8 +66,8 @@ class AVL extends BST {
                 this.updateBalances();
             }
             if (this.balance > 1) {
-                if (this.root.left.balance < 0) {
-                    this.root.left.rotateL();
+                if (this.left.balance < 0) {
+                    this.left.rotateL();
                     this.updateHeights();
                     this.updateBalances();
                 }
@@ -84,31 +76,6 @@ class AVL extends BST {
                 this.updateBalances();
             }
         }
-    }
-
-    delete(data) {
-        if (!this.root) return;
-
-        if (this.root.data === data) {
-            if (!this.root.left.root && !this.root.right.root) {
-                this.root = null;
-            } else if (!this.root.left.root) {
-                this.root = this.root.right.root;
-            } else if (!this.root.right.root) {
-                this.root = this.root.left.root;
-            } else {
-                const replacement = this.getSuccessor();
-                if (replacement) {
-                    this.root.data = replacement.data;
-                    this.root.right.delete(replacement.data);
-                }
-            }
-        } else if (this.root.data > data) {
-            this.root.left.delete(data);
-        } else if (this.root.data < data) {
-            this.root.right.delete(data);
-        }
-        this.rebalance();
     }
 }
 
