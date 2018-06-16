@@ -31,6 +31,26 @@ class BST {
         return 0;
     }
 
+    getGrandparent () {
+        const parentTree = this.parent;
+        if (parentTree) return parentTree.parent;
+        return null;
+    }
+
+    getUncle () {
+        const grandparentTree = this.getGrandparent();
+        if (!grandparentTree) return null;
+        if (this.parent.isLeftChild()) return grandparentTree.right;
+        else return grandparentTree.left;
+    }
+
+    getSibling () {
+        if (!this.parent) return null;
+        if (this.isRightChild()) return this.parent.left;
+        else if (this.isLeftChild()) return this.parent.right;
+        return null;
+    }
+
     insert(data) {
         if (this.root === null) {
             this.root = data;
