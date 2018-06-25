@@ -1,5 +1,32 @@
-
-// 재귀적 정의 사용
+/**
+ * < Binary Search Tree >
+ *     이원 트리 자료구조 중에 아래의 속성을 만족하는 자료구조
+ *
+ *      각 노드는 값을 가지, 어떤 두 원소도 동일한 키를 가지고 있지 않음
+ *      왼쪽 서브트리에 있는 모든 값들은 루트의 값보다 작음
+ *      오른쪽 서브트리에 있는 모든 값들은 루트의 값보다 큼
+ *      왼쪽, 오른쪽 서브트리 모두 이진 탐색 트리
+ *
+ *      < 탐색 >
+ *          k가 루트의 키보다 작다면 왼쪽 서브트리를 탐색
+ *          k가 루트의 키보다 크다면 오른쪽 서브트리를 탐색
+ *          => O(h) 소요 (이때 h는 트리의 높이 값)
+ *
+ *     < 삽입 >
+ *         탐색 수행 후 실패한 자리에서 삽입수행
+ *         탐색 : O(h), 삽입 : O(1)
+ *         O(h) + O(1) = O(h)
+ *         => O(h)
+ *
+ *     < 삭제 >
+ *         리프 노드의 삭제는 간단
+ *         차수가 1인 노드는 해당 노드를 삭제 후 그 위치에 자식노드를 위치
+ *         차수가 2인 노드는 왼쪽서브트리에서 가장 큰 노드나 오른쪽 서브트리에서 가장 작은 노드 대체후 대체노드에 대해서 삭제연산 수행
+ *         대체될 노드를 탐색 : O(h), 대체 노드 삭제: O(1)
+ *         => O(h)
+ *
+ *    트리의 높이에 따라 탐색, 삽입, 삭제의 시간복잡도가 결
+ */
 class BST {
     constructor() {
         this.root = null;
@@ -51,6 +78,10 @@ class BST {
         return null;
     }
 
+    /**
+     * 삽입 연산
+     * @param data : 추가하고자 하는 노드의 값
+     */
     insert(data) {
         if (this.root === null) {
             this.root = data;
@@ -58,7 +89,9 @@ class BST {
             return this;
         }
         let dir;
+        // 추가하고자 하는 값이 root보다 크면 오른쪽 서브트리로
         if (this.root < data) dir = 'right';
+        // 추가하고자 하는 값이 root보다 작으면 왼쪽 서브트리로
         else if (this.root > data) dir = 'left';
         else throw new Error(`["${data}"] already in tree`);
 
@@ -71,6 +104,7 @@ class BST {
         } else {
             this[dir].insert(data);
         }
+        // 트리정보 갱신
         this.updateTree();
     }
 
@@ -101,6 +135,10 @@ class BST {
         }
     }
 
+    /**
+     * 삭제 연산시에 차수가 2인 노드일 경우 오른쪽 서브트리에서 가장 작은 노드를 가져옴
+     * 해당 트리에서 오른쪽 서브트리 중 가장 작은 값을 가지는 노드 출력
+     */
     getSuccessor () {
         let successor = this.right;
         if (successor) {
@@ -112,14 +150,25 @@ class BST {
         return successor;
     }
 
+    /**
+     * 삭제 연산
+     * 탐색 수행 후 해당 노드의 차수에 따라 삭제연산 수행
+     * O(h) 소요
+     * @param data
+     */
     delete (data) {
         if (this.root === data) {
             if (this.isLeaf()) {
-                // 노드의 총 개수가 1개일 때
+                /**
+                 * 자식 노드가 없으면 해당 노드 삭제
+                 */
                 if (this.isRoot()) this.root = null;
                 else if (this.isRightChild()) this.parent.right = null;
                 else if (this.isLeftChild()) this.parent.left = null;
-            } else if (!this.right) { // left child만을 가질 때
+            } else if (!this.right) {
+                /**
+                 * 왼쪽 서브트리만 가질 경우, 해당 자리에 왼쪽 서브트리를 위치
+                 */
                 if (this.isRoot()) {
                     this.root = this.left.root;
                     this.right = this.left.right;
@@ -127,7 +176,10 @@ class BST {
                 }
                 else if (this.isRightChild()) this.parent.right = this.left;
                 else if (this.isLeftChild()) this.parent.left = this.left;
-            } else if (!this.left) { // right child만을 가질 때
+            } else if (!this.left) {
+                /**
+                 * 오른쪽 서브트리만 가질 경우, 해당 자리에 오른쪽 서브트리를 위치
+                 */
                 if (this.isRoot()) {
                     this.root = this.right.root;
                     this.left = this.right.left;
@@ -135,12 +187,20 @@ class BST {
                 }
                 else if (this.isRightChild()) this.parent.right = this.right;
                 else if (this.isLeftChild()) this.parent.left = this.right;
-            } else { // 둘다 가질 때
+            } else {
+                /**
+                 * 차수가 2인 경우 오른쪽 서브트리 중 가장 작은 노드 가져옴
+                 * => O(h) 소요
+                 */
                 const successor = this.getSuccessor();
                 this.root = successor.root;
                 this.right.delete(successor.root);
             }
         } else {
+            /**
+             * data가 root보다 크면 오른쪽 서브트리로 이동
+             * data가 root보다 작으면 왼쪽 서브트리로 이동
+             */
             let dir;
             if (this.root < data) dir = 'right';
             else if (this.root > data) dir = 'left';
@@ -152,7 +212,15 @@ class BST {
         this.updateTree();
     }
 
+    /**
+     * tree를 inorder순서로 출력하는 함수
+     * binary search tree를 inorder로 순회하면 정렬된 array가 출력
+     * @returns {Array}
+     */
     inorder () {
+        /**
+         * tree에 아무것도 없는 경우
+         */
         if (!this.root) return [];
 
         const result = [];
@@ -178,6 +246,12 @@ class BST {
         return new BST();
     }
 
+    /**
+     * 오른쪽으로 회전
+     * root값을 왼쪽자식의 값으로 변경
+     * root를 왼쪽자식의 오른쪽자식으로 변경
+     * 기존에 있던 왼쪽자식의 오른쪽 자식은 root의 왼쪽자식으로 변경
+     */
     rotateR () {
         const pivot = this.left;
         const right = this.right;
@@ -199,6 +273,12 @@ class BST {
         if (pivot.left) pivot.left.parent = pivot;
     }
 
+    /**
+     * 왼쪽으로 회전
+     * root값을 오른쪽 자식의 값으로 변경
+     * root값을 오른쪽 자식의 왼쪽자식으로 변경
+     * 기존에 있던 오른쪽 자식의 왼쪽자식을 root의 오른쪽 자식으로 변경
+     */
     rotateL () {
         const pivot = this.right;
         const left = this.left;
