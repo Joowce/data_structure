@@ -22,9 +22,9 @@ const MAX_SIZE = 100;
  */
 
 class CircularQueue {
-    constructor(maxSize){
+    constructor(maxSize = MAX_SIZE){
         this.queue = [];
-        this.maxSize = maxSize || MAX_SIZE;
+        this.maxSize = maxSize;
 
         this.rear = this.maxSize - 1;
         this.front = this.maxSize - 1;
@@ -49,8 +49,12 @@ class CircularQueue {
         return this.rear === this.front
     }
 
+    /**
+     * O(1)
+     * queue가 full인지 판단
+     * @returns {boolean}
+     */
     isFull() {
-
         // 여유공간이 없으면 queue가 full인지 empty인지 구분할 수 없음
         const rear = (this.rear + 1) % this.maxSize;
         return rear === this.front;
@@ -63,7 +67,7 @@ class CircularQueue {
      */
     add(data){
         if(this.isFull()) {
-            this.full();
+            this.extend();
         }
         // modulo 연산 사용
         this.rear = (this.rear + 1) % this.maxSize;
@@ -96,7 +100,7 @@ class CircularQueue {
      * 이때 새로운 큐의 맨앞에 오도록 복사
      *
      */
-    full() {
+    extend() {
         // this.front는 맨처음 원소의 앞자리를 가리키고 있음
         const start = (this.front + 1) % this.maxSize;
         const newQueue = [];

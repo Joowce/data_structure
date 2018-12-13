@@ -1,10 +1,10 @@
 const should = require('should');
-const BST = require('../../../src/tree/binary_search_tree/BST');
+const BinarySearchTree = require('../../src/tree/BinarySearchTree');
 
 describe('binary search tree', () => {
     describe('create', () => {
         it('create Empty Tree', () => {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const height = 0;
             const result = [];
 
@@ -15,7 +15,7 @@ describe('binary search tree', () => {
 
     describe('insert', () => {
         it('insert one', () => {
-            const tree= new BST();
+            const tree= new BinarySearchTree();
             const inserted = 2;
             const height = 1;
             const result = [inserted];
@@ -26,7 +26,7 @@ describe('binary search tree', () => {
         });
 
         it('insert existing data => error', () => {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const inserted = [3, 2, 4];
 
             inserted.forEach(val => tree.insert(val));
@@ -36,7 +36,7 @@ describe('binary search tree', () => {
         });
 
         it('insert many nodes', () => {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const inserted = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
 
             const result = [1, 2, 3, 4, 5, 6, 7, 14, 15, 16];
@@ -50,7 +50,7 @@ describe('binary search tree', () => {
 
     describe('delete', () => {
         it('delete root', () => {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const inserted = [3, 2, 1, 4];
             const result = [1, 2, 4];
             const height = 3;
@@ -65,7 +65,7 @@ describe('binary search tree', () => {
         });
 
         it('delete leaf', () => {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const inserted = [3, 2, 1, 4];
             const leaf = 1;
             const result = [2, 3, 4];
@@ -79,7 +79,7 @@ describe('binary search tree', () => {
         });
 
         it('delete non-leaf, non-root', () => {
-           const tree = new BST();
+           const tree = new BinarySearchTree();
            const inserted = [5, 2, 1, 4, 3, 6];
            const deleted = 2;
            const result = [1, 3, 4, 5, 6];
@@ -93,7 +93,7 @@ describe('binary search tree', () => {
         });
 
         it('deleting empty tree is ok', () =>  {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const height = 0;
             const result = [];
 
@@ -103,7 +103,7 @@ describe('binary search tree', () => {
         });
 
         it('deleting non-existing tree is no change', () => {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const inserted = [5, 2, 1, 4, 3, 6];
             const height = 4;
             const result = [1, 2, 3, 4, 5, 6];
@@ -115,7 +115,7 @@ describe('binary search tree', () => {
         });
 
         it('delete no-left-child node', () => {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const inserted = [5, 2, 1, 4, 3, 6];
             const deleted = [1, 2];
             const height = 3;
@@ -129,7 +129,7 @@ describe('binary search tree', () => {
         });
 
         it('delete no-right-child node', () => {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const inserted = [5, 2, 1, 4, 3, 6];
             const deleted = [3, 4, 2];
             const height = 2;
@@ -145,7 +145,7 @@ describe('binary search tree', () => {
 
     describe('getSuccessor', () => {
         it('get successor', () => {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const inserted = [5, 2, 1, 4, 3, 6];
             const successorData = 6;
 
@@ -156,7 +156,7 @@ describe('binary search tree', () => {
         });
 
         it('no successor', () => {
-            const tree = new BST();
+            const tree = new BinarySearchTree();
             const inserted = [6, 4, 3, 5];
 
             inserted.forEach(val => tree.insert(val));

@@ -1,4 +1,4 @@
-const BST = require('../binary_search_tree/BST');
+const BinarySearchTree = require('./BinarySearchTree');
 /**
  * 레드-블랙 트리
  * self-balancing binary tree
@@ -33,7 +33,7 @@ const RED = 'r';
 const BLACK = 'b';
 
 
-class RBT extends BST {
+class RedBlackTree extends BinarySearchTree {
     constructor() {
         super();
         // nil node is Black
@@ -146,7 +146,7 @@ class RBT extends BST {
     }
 
     makeNewTree(){
-        return new RBT();
+        return new RedBlackTree();
     }
 
     insert(data) {
@@ -308,4 +308,4 @@ class RBT extends BST {
     }
 }
 
-module.exports = RBT;
+module.exports = RedBlackTree;

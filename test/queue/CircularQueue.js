@@ -1,5 +1,5 @@
 const should = require('should');
-const CircularQueue = require('../../src/circular_queue/circular_queue');
+const CircularQueue = require('../../src/queue/CircularQueue');
 
 describe('circular queue', () => {
     describe('circular queue 생성', () => {

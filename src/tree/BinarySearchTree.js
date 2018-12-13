@@ -27,7 +27,7 @@
  *
  *    트리의 높이에 따라 탐색, 삽입, 삭제의 시간복잡도가 결
  */
-class BST {
+class BinarySearchTree {
     constructor() {
         this.root = null;
         this.left = null;
@@ -243,7 +243,7 @@ class BST {
     }
 
     makeNewTree() {
-        return new BST();
+        return new BinarySearchTree();
     }
 
     /**
@@ -301,5 +301,5 @@ class BST {
     };
 }
 
-module.exports = BST;
+module.exports = BinarySearchTree;
 

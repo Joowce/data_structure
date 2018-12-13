@@ -1,4 +1,4 @@
-const Node = require('../node/Node');
+const Node = require('./Node');
 
 /**
  * < 단순 연결리스트 >
@@ -86,28 +86,28 @@ class DoublyLinkedList {
 
     /**
      * O(1)
-     * 링크드 리스트에 deleted Node를 삭제한다
+     * 링크드 리스트에 target Node를 삭제한다
      * 기존의 링크드 리스트는 노드를 삭제하려면, 이전의 노드에 가기 위해 처음 부터 시작해야 하지만,
      * 양방향 연결 리스트는 이전의 노드에 한번에 접근할 수 있다.
      *
-     * @param deleted
+     * @param target
      * @returns {null}
      */
-    remove(deleted) {
+    remove(target) {
 
-        if (!deleted || this.head === null) return null;
+        if (!target || this.head === null) return null;
 
-        // deleted가 마지막 노드가 아닐 때에만, 즉 이후의 노드가 존재할 때만
-        if (deleted.next) deleted.next.prev = deleted.prev;
+        // target가 마지막 노드가 아닐 때에만, 즉 이후의 노드가 존재할 때만
+        if (target.next) target.next.prev = target.prev;
 
-        // deleted가 첫번째 노드가 아닐 때에만, 즉 이전의 노드가 존재할 때만
-        if (deleted.prev) deleted.prev.next = deleted.next;
+        // target가 첫번째 노드가 아닐 때에만, 즉 이전의 노드가 존재할 때만
+        if (target.prev) target.prev.next = target.next;
 
-        // deleted가 첫번째 노드이면, this.head의 값도 그 다음값으로 변경해줘야함
-        if (deleted === this.head) this.head = deleted.next;
+        // target가 첫번째 노드이면, this.head의 값도 그 다음값으로 변경해줘야함
+        if (target === this.head) this.head = target.next;
         this.count -= 1;
 
-        return deleted.data;
+        return target.data;
     }
 
     /**

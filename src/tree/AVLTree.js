@@ -1,4 +1,4 @@
-const BST = require('../binary_search_tree/BST');
+const BinarySearchTree = require('./BinarySearchTree');
 
 /**
  * AVL Tree
@@ -28,7 +28,7 @@ const BST = require('../binary_search_tree/BST');
  *     => O(logn)
  */
 
-class AVL extends BST {
+class AVLTree extends BinarySearchTree {
     constructor() {
         super();
         this.balance = 0;
@@ -59,7 +59,7 @@ class AVL extends BST {
     }
 
     makeNewTree() {
-        return new AVL();
+        return new AVLTree();
     }
 
     /**
@@ -112,5 +112,5 @@ class AVL extends BST {
     }
 }
 
-module.exports = AVL;
+module.exports = AVLTree;
 

@@ -1,10 +1,10 @@
 const should = require('should');
-const AVL = require('../../../src/tree/AVL/AVL');
+const AVLTree = require('../../src/tree/AVLTree');
 
 describe('AVL Tree', () => {
     describe('create', () => {
         it('create Empty Tree', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const height = 0;
             should.equal(tree.getHeight(), height);
         });
@@ -12,7 +12,7 @@ describe('AVL Tree', () => {
 
     describe('insert', () => {
        it('insert one', () => {
-           const tree = new AVL();
+           const tree = new AVLTree();
            const height = 1;
            const rootData = 1;
 
@@ -22,7 +22,7 @@ describe('AVL Tree', () => {
        });
 
         it('rotateR', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const first = 3;
             const second = 2;
             const third = 1;
@@ -37,7 +37,7 @@ describe('AVL Tree', () => {
         });
 
         it('rotateL', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const first = 1;
             const second = 2;
             const third = 3;
@@ -52,7 +52,7 @@ describe('AVL Tree', () => {
         });
 
         it('> double rotation', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const first = 6;
             const second = 5;
             const third = 7;
@@ -74,7 +74,7 @@ describe('AVL Tree', () => {
         });
 
         it('< double rotation', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const first = 6;
             const second = 5;
             const third = 15;
@@ -96,7 +96,7 @@ describe('AVL Tree', () => {
         });
 
         it('insert existing data => throw error', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const data = 1;
             tree.insert(data);
             should.throws(() => {
@@ -105,7 +105,7 @@ describe('AVL Tree', () => {
         });
 
         it('insert many nodes', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const height = 4;
             const balance = -1;
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
@@ -121,7 +121,7 @@ describe('AVL Tree', () => {
 
     describe('delete', () => {
         it('delete root', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const data = [3, 2, 1, 4, 5];
             const afterDeletion = [1, 3, 4, 5];
 
@@ -132,7 +132,7 @@ describe('AVL Tree', () => {
         });
 
         it('delete leaf', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const data = [3, 2, 1, 4];
             const deleted = 1;
 
@@ -148,7 +148,7 @@ describe('AVL Tree', () => {
         });
 
         it('delete non-leaf, non-root', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
             const deleted = 7;
 
@@ -164,7 +164,7 @@ describe('AVL Tree', () => {
         });
 
         it('deleting empty tree is ok', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const deleted = 1;
             const height = 0;
 
@@ -173,7 +173,7 @@ describe('AVL Tree', () => {
         });
 
         it('deleting non-existing tree is no change', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
 
             const deleted = 13;
@@ -189,7 +189,7 @@ describe('AVL Tree', () => {
         });
 
         it('delete no-left-child node', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
 
             const deleted = [14, 15];
@@ -205,7 +205,7 @@ describe('AVL Tree', () => {
         });
 
         it('delete no-right-child node', () => {
-            const tree = new AVL();
+            const tree = new AVLTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
 
             const deleted = [16, 15];

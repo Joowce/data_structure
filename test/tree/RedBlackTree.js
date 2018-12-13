@@ -1,5 +1,5 @@
 const should = require('should');
-const RBT = require('../../../src/tree/RBT/RBT');
+const RedBlackTree = require('../../src/tree/RedBlackTree');
 
 const RED = 'r';
 const BLACK = 'b';
@@ -8,7 +8,7 @@ describe('red black tree', () => {
 
     describe('create', () => {
         it('create empty tree', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const height = 0;
 
             should.equal(tree.getHeight(), height);
@@ -17,7 +17,7 @@ describe('red black tree', () => {
 
     describe('insert', () => {
         it('insert one, root is black', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const inserted = [1];
             const height = 1;
 
@@ -28,7 +28,7 @@ describe('red black tree', () => {
             should.ok(tree.isBlack());
         });
         it('insert existing data => error', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const inserted = [3, 2, 1, 4, 5];
             const result = [1, 2, 3, 4, 5];
             const height = 3;
@@ -41,7 +41,7 @@ describe('red black tree', () => {
             });
         });
         it('insert many nodes', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const inserted = [3, 2, 1, 4, 5, 7, 6, 16, 15, 14, 11, 9, 12, 13];
             const result = [1, 2, 3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 16];
             const height = 5;
@@ -54,7 +54,7 @@ describe('red black tree', () => {
 
     describe('delete', () => {
         it('delete root', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3, 2, 1, 4, 5];
             const afterDeletion = [1, 3, 4, 5];
             const height = 3;
@@ -67,7 +67,7 @@ describe('red black tree', () => {
         });
 
         it('delete root with only one-side child', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const height = 1;
             let data = [6, 7];
             let afterDeletion = [7];
@@ -90,7 +90,7 @@ describe('red black tree', () => {
         });
 
         it('delete leaf', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3, 2, 1, 4];
             const deleted = 1;
 
@@ -104,7 +104,7 @@ describe('red black tree', () => {
         });
 
         it('delete non-leaf, non-root', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
             const deleted = 15;
 
@@ -118,7 +118,7 @@ describe('red black tree', () => {
         });
 
         it('delete non-leaf, non-root with only one-side child', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [7, 8, 4, 3, 5, 2, 6];
             const deleted = [3, 6];
 
@@ -132,7 +132,7 @@ describe('red black tree', () => {
         });
 
         it('deleting empty tree is ok', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const deleted = 1;
             const height = 0;
 
@@ -141,7 +141,7 @@ describe('red black tree', () => {
         });
 
         it('deleting non-existing tree is no change', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
 
             const deleted = 13;
@@ -155,7 +155,7 @@ describe('red black tree', () => {
         });
 
         it('delete case-0', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
 
             const deleted = 7;
@@ -169,7 +169,7 @@ describe('red black tree', () => {
         });
 
         it('delete case-1', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3];
 
             const deleted = 3;
@@ -183,7 +183,7 @@ describe('red black tree', () => {
         });
 
         it('delete case-2 : left', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3, 2, 1, 4, 5, 6, 7];
 
             const deleted = 1;
@@ -197,7 +197,7 @@ describe('red black tree', () => {
         });
 
         it('delete case-2 : right', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [6, 7, 4, 3, 5, 2];
 
             const deleted = 7;
@@ -211,7 +211,7 @@ describe('red black tree', () => {
         });
 
         it('delete case-3', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
 
             const deleted = 6;
@@ -225,7 +225,7 @@ describe('red black tree', () => {
         });
 
         it('delete case-4', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16];
 
             const deleted = 1;
@@ -239,7 +239,7 @@ describe('red black tree', () => {
         });
 
         it('delete case-5', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 18, 17];
 
             const deleted = 7;
@@ -253,7 +253,7 @@ describe('red black tree', () => {
         });
 
         it('delete case-6', () => {
-            const tree = new RBT();
+            const tree = new RedBlackTree();
             const data = [3, 2, 1, 4, 5, 6, 7, 16, 15, 14];
 
             const deleted = 2;
